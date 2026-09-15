@@ -1,9 +1,9 @@
 import pandas as pd 
-import math
+import numpy as np 
 
 from load_data import load_matches
 from features import create_features
-
+from linear_regression import LinearRegression 
 
 matches = load_matches()
 features = create_features(matches)
@@ -17,12 +17,58 @@ df["win_diff"] = (
 )
 
 
-X = df["win_diff"].tolist()
+X = df["win_diff"].to_numpy()
 
-y = matches["FTHG"].tolist()
+y = matches["FTHG"].to_numpy()
+
+
+# Split the data into training and testing 
+# 80% is training 
+
+split = int(len(X) * 0.8)
+X_train = X[:split]
+X_test = X[split:]
+
+y_train = y[:split]
+y_test = y[split:]
+
+print("Traning Matches: ", len(X_train))
+print("Testing Matches: ", len(X_test))
+
+
+
 
 #the linear regression 
 
+model = LinearRegression(
+    learning_rate=0.001, 
+    epochs=1000
+)
+
+loss_history = model.fit(X_train, y_train)
+
+predictions = model.predict(X_test)
+
+errors = predictions - y_test 
+
+mae = np.mean(np.abs(errors))
+mse = np.mean(errors**2)
+rmse = np.sqrt(mse)
+
+print("-----MODEL OUTPUT-----")
+print("Weight:", model.w)
+print("Bias:", model.b)
+
+print("-----Final Training Loss-----")
+print(loss_history[-1])
+
+print("-----Testing Results-----")
+print("MAE: ", mae)
+print("MSE: ", mse)
+print("RMSE: ", rmse)
+
+
+'''
 def predict(x, m,b):
     return m * x + b 
 
@@ -39,7 +85,7 @@ def std(values):
 
     return math.sqrt(total / len(values))
 
-'''
+
 numerator = 0
 denominator = 0 
 

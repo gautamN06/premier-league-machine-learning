@@ -78,13 +78,14 @@ def create_features(matches):
 
     return rows 
 
-matches = load_matches()
 
-features = create_features(matches)
+if __name__ == "__main__":
+    matches = load_matches()
+    features = create_features(matches)
 
-print(f"Number of feature rows :  {len(features)}")
-print("Number of matches:", len(matches))
+    print(f"Number of feature rows:  {len(features)}")
+    print(f"Number of matches: {len(matches)}")
 
-print("\n First 5 feature rows:")
-for row in features[:5]:
-    print(row)
+    print("\n First 5 feature rows:")
+    for row in features[:5]:
+        print(row)

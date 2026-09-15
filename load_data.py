@@ -9,6 +9,7 @@ def load_matches():
     matches["Date"] = pd.to_datetime(matches["Date"], dayfirst=True)
     return matches 
 
+'''
 if __name__ == "__main__":
     matches = load_matches()
 
@@ -31,3 +32,5 @@ if __name__ == "__main__":
 
     print("\n------- DATE RANGE -------")
     print(matches["Date"].min(), "to", matches["Date"].max())
+
+'''

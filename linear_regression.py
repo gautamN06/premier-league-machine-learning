@@ -7,7 +7,7 @@ class LinearRegression:
         self.epochs = epochs 
 
         self.w = None 
-        self.b = 0 
+        self.b = None
 
     def predict(self, X):
         return self.w * X + self.b 
@@ -16,12 +16,16 @@ class LinearRegression:
         self.w =0 
         self.b = 0 
 
+        loss_history = []
+
         for epoch in range(self.epochs):
             y_pred = self.predict(X)
 
             error = y_pred - y
 
-            
+            loss = np.mean(error **2)
+            loss_history.append(loss)
+
             dw = (2/len(X)) * np.sum(X*error)
             db = (2/len(X)) * np.sum(error)
 
@@ -29,4 +33,5 @@ class LinearRegression:
             self.w -= self.learning_rate * dw 
             self.b -= self.learning_rate * db 
 
+        return loss_history 
 
