@@ -76,11 +76,15 @@ def create_features(matches):
             match["FTHG"]
         )
 
-        return rows 
+    return rows 
 
 matches = load_matches()
 
 features = create_features(matches)
 
-#get the last 5 
-print(features[:5])
+print(f"Number of feature rows :  {len(features)}")
+print("Number of matches:", len(matches))
+
+print("\n First 5 feature rows:")
+for row in features[:5]:
+    print(row)
